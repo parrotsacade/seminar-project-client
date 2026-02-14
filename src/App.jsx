@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const SeminarForm = () => {
 
@@ -91,6 +92,7 @@ const SeminarForm = () => {
             Register Now
           </button>
         </form>
+        <Link to='/users'><button className="btn btn-secondary my-5">All Registations</button></Link>
       </div>
     </div>
   );
