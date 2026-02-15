@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const ShowUsers = () => {
   const [users, setUsers] = useState([]);
@@ -29,8 +30,6 @@ const ShowUsers = () => {
       },
     });
   };
-
- 
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -82,11 +81,12 @@ const ShowUsers = () => {
                   >
                     Delete
                   </td>
-                  <td
-                    className="px-6 py-4 text-gray-600 cursor-pointer"
-                  >
-                    Edit
-                  </td>
+                  <Link to={`/user/${user._id}`}>
+                  
+                    <td className="px-6 py-4 text-gray-600 cursor-pointer">
+                      Edit
+                    </td>
+                  </Link>
                 </tr>
               ))}
             </tbody>
