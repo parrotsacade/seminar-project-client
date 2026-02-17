@@ -1,25 +1,32 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const SeminarForm = () => {
-
-  const handleSubmitData=(e)=>{
-   e.preventDefault()
-   const form =  e.target
-   const name =form.name.value
-   const email =form.email.value
-   const number =form.number.value
-   const address =form.address.value
-   console.log(name,email,number,address);
-   const data = {name,email,number,address}
-   fetch("http://localhost:5000/seminar",{
-     method:"POST",
-     headers:{
+  const navigate = useNavigate();
+  const handleSubmitData = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const number = form.number.value;
+    const address = form.address.value;
+    console.log(name, email, number, address);
+    const data = { name, email, number, address };
+    fetch("http://localhost:5000/seminar", {
+      method: "POST",
+      headers: {
         "content-type": "application/json",
-     },
-     body:JSON.stringify(data)
-   })
-  }
+      },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        toast.success("Registration Successfull");
+        navigate("/users")
+      }
+    });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 px-4">
@@ -31,7 +38,7 @@ const SeminarForm = () => {
           Join our upcoming seminar
         </p>
 
-        <form onSubmit={handleSubmitData} className="space-y-4" >
+        <form onSubmit={handleSubmitData} className="space-y-4">
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -92,7 +99,9 @@ const SeminarForm = () => {
             Register Now
           </button>
         </form>
-        <Link to='/users'><button className="btn btn-secondary my-5">All Registations</button></Link>
+        <Link to="/users">
+          <button className="btn btn-secondary my-5">All Registations</button>
+        </Link>
       </div>
     </div>
   );

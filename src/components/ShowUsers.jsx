@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 const ShowUsers = () => {
   const [users, setUsers] = useState([]);
@@ -28,12 +29,20 @@ const ShowUsers = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
+    .then(res=>{
+      if(res.status===200){
+        toast.success("Delete Successfully")
+        window.location.reload()
+      }
+    })
+
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-6">
+        <Link to={"/"} className="btn btn-ghost cursor-pointer">Back</Link>
         <h2 className="text-3xl font-bold text-gray-800 mb-6">
           Seminar Registrations
         </h2>

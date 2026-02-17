@@ -1,8 +1,9 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const UpdateName = () => {
   const data = useLoaderData();
-
+  const navigate = useNavigate();
   console.log(data);
 
   const updateName = (e) => {
@@ -11,18 +12,25 @@ const UpdateName = () => {
     const name = form.name.value;
     console.log(name);
 
-    fetch(`http://localhost:5000/seminar/${data._id}`,{
-      method:"PATCH",
-      headers:{
+    fetch(`http://localhost:5000/seminar/${data._id}`, {
+      method: "PATCH",
+      headers: {
         "content-type": "application/json",
-     },
-     body:JSON.stringify({name})
-    })
-
+      },
+      body: JSON.stringify({ name }),
+    }).then((res) => {
+      if (res.status === 200) {
+        toast.success("Update Successfully");
+        navigate("/users");
+      }
+    });
   };
 
   return (
-    <form onSubmit={updateName} className="flex justify-center items-center h-screen">
+    <form
+      onSubmit={updateName}
+      className="flex justify-center items-center h-screen"
+    >
       <input
         defaultValue={data.name}
         name="name"
